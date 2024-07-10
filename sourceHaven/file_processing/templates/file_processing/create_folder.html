@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block load_static %}
+{% load static %}
+<link href="{% static "css/create_folder.css" %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<div class="wrapper">
+    <div class="project_row">
+        {% load thumbnail %}
+        <div class="project_element">
+            <img src="{{ project.owner.profile.avatar|thumbnail_url:'my_preview_4' }}">
+            <div class="project_name">
+                <a href={{ project.get_absolute_url }}>{{ project.name }}</a>
+            </div>
+            <div class="is_public">
+                {% if project.is_public %}
+                    Публичный
+                {% else %}
+                    Приватный
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="create_folder">
+        <div class="create_folder_title">
+            Создание папки
+        </div>
+        <div class="folder_form">
+            <form method="post">
+                {% csrf_token %}
+                <div class="directory_title">
+                    Директория
+                </div>
+                <select name="folders">
+                    <option disabled>Выберите директорию</option>
+                    <option value="None">Директория проекта</option>
+                    {% for directory in directories %}
+                        <option value="{{ directory.1 }}">{{ directory.0 }}</option>
+                    {% endfor %}
+                </select>
+                <div class="directory_title">
+                    Название папки
+                </div>
+                <input type="text" name="folder_name">
+                <input type="submit" value="Отправить">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

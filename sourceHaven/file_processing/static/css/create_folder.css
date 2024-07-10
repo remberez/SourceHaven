@@ -1,0 +1,57 @@
+.wrapper {
+    width: 800px;
+    background-color: white;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+    margin: 30px auto;
+    padding: 15px;
+}
+
+.project_row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0 0 20px 0;
+    border-bottom: 1px rgb(209, 209, 209) solid;
+}
+
+.project_element {
+    display: flex;
+    align-items: flex-end;
+}
+
+.project_element img {
+    border-radius: 100%;
+}
+
+.project_element div, .project_element img {
+    display: flex;
+    margin: 0 5px 0;
+}
+
+.project_name a {
+    font-size: 25px;
+    color: black;
+}
+
+.is_public {
+    font-size: 10px;
+    border-radius: 5px;
+    padding: 5px;
+    border: 1px gray solid;
+    color: gray;
+}
+
+.create_folder_title {
+    font-size: 20px;
+    padding: 20px 0 0 0;
+}
+
+.folder_form {
+    margin: 20px auto;
+    width: 200px;
+}
+
+.folder_form input, .folder_form select {
+    display: block;
+    margin: 10px 0 10px 0
+}

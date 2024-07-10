@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block load_static %}
+{% load static %}
+<link href="{% static "css/project_list.css" %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<div class="wrapper">
+    <div class="projects_title">
+        Ваши проекты
+    </div>
+    <div class="projects_wrapper">
+        {% for project in projects %}
+            <div class="project_block">
+                <div class="project_line">
+                    <a href="{{ project.get_absolute_url }}">{{ project.name }}</a>
+                    <div class="is_public">
+                        {% if project.is_public %}
+                            Публичный
+                        {% else %}
+                            Приватный
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="langs">
+                    {% for lang in project.languages.all %}
+                    <div class="lang">
+                        <div class="circle"></div>
+                        <div class="name">{{ lang.name }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

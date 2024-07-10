@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="{% static "css/base.css" %}" rel="stylesheet">
+  <title>{% block title%}{% endblock %}</title>
+  {% block load_static %}{% endblock %}
+</head>
+<body>
+  <div class="header">
+    <div class="logo">
+      {% load thumbnail %}
+      <a href="#">
+        <img src="{{ "logo/logo_2.png"|thumbnail_url:'my_preview_1' }}">
+      </a>
+    </div>
+    <div class="nav">
+      {% if request.user.is_authenticated %}
+        <div class="nav-element">
+          {% load thumbnail %}
+          {% if request.user.profile.avatar %}
+            <img src="{{ request.user.profile.avatar|thumbnail_url:'my_preview_2' }}" class="img-fluid" id="profile-link">
+          {% else %}
+            <img src="{{ "users/static_images/base_avatar/avatar.jpg"|thumbnail_url:'my_preview_2' }}" class="img-fluid" id="profile-link">
+          {% endif %}
+          <div id="profile-dropdown" class="dropdown-content" style="display: none;">
+            <!-- Сюда добавьте содержимое выпадающего списка -->
+            <a href="{{ request.user.profile.get_absolute_url }} ">Профиль</a>
+            <a href="{% url 'file_processing:create_project' %}">Создать проект</a>
+            <a href="{% url 'file_processing:projects_list' %}">Мои проекты</a>
+            <form action="{% url 'account:logout' %}" method="post">
+              {% csrf_token %}
+              <input type="submit" value='Выйти'>
+            </form>
+          </div>
+        </div>
+      {% endif %}
+      {% if not request.user.is_authenticated %}
+        <div class="nav-element">
+          <a href="{% url 'account:registration' %}">Регистрация</a>
+        </div>
+      {% endif %}
+      {% if not request.user.is_authenticated %}
+        <div class="nav-element">
+          <form action="{% if request.user.is_authenticated %}{% url 'account:logout' %}{% else %}{% url 'account:login' %}{% endif %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value='{% if request.user.is_authenticated %}Выйти{% else %}Войти{% endif %}'>
+          </form>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  <script src="//cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
+  <script>
+    const csrftoken = Cookies.get('csrftoken');
+    document.addEventListener('DOMContentLoaded', (event) => {
+      document.getElementById('profile-link').addEventListener('click', function(event) {
+        event.preventDefault();
+        var dropdown = document.getElementById('profile-dropdown');
+        dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+      });
+    {% block domready %}
+    {% endblock %}
+    })
+    </script>
+  {% block content %}
+  {% endblock %}
+</body>
+</html>

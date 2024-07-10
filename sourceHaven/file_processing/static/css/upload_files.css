@@ -1,0 +1,50 @@
+.wrapper {
+    max-width: 800px;
+    background-color: white;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+    margin: 20px auto;
+}
+
+.wrapper {
+  width: 800px;
+  background-color: white;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+  margin: 30px auto;
+  padding: 15px;
+}
+
+.project_row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0 0 20px 0;
+  border-bottom: 1px rgb(209, 209, 209) solid;
+}
+
+.project_element {
+  display: flex;
+  align-items: flex-end;
+}
+
+.project_element img {
+  border-radius: 100%;
+}
+
+.project_element div, .project_element img {
+  display: flex;
+  margin: 0 5px 0;
+}
+
+.project_name a {
+  font-size: 25px;
+  color: black;
+}
+
+.file-upload-form {
+  margin: 20px 0 0 0 ;
+}
+
+.file-upload-form * {
+  display: block;
+  margin-bottom: 10px;
+}

@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+{% block load_static %}
+{% load static %}
+<link href="{% static "css/project_detail.css" %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<div class="wrapper">
+    <div class="directory_wrapper">
+        <div class="project_row">
+            {% load thumbnail %}
+            <div class="project_element">
+                <img src="{{ project.owner.profile.avatar|thumbnail_url:'my_preview_4' }}">
+                <div class="project_name">
+                    <a href={{ project.get_absolute_url }}>{{ project.name }}</a>
+                </div>
+                <div class="is_public">
+                    {% if project.is_public %}
+                        Публичный
+                    {% else %}
+                        Приватный
+                    {% endif %}
+                </div>
+            </div>
+            <div class="right_site">
+                <div class="pin">
+                    Закрепить
+                </div>
+                <div class="file-dropdown">
+                    <button onclick="toggleFileMenu()" class="file-btn">Добавить</button>
+                    <div id="fileMenu" class="file-menu">
+                      <a href="{% url 'file_processing:upload_file' request.user.profile.slug project.slug %}">Загрузить файл</a>
+                      <a href="#create">Создать файл</a>
+                      <a href="{% url 'file_processing:create_folder' request.user.profile.slug project.slug %}">Папку</a>
+                    </div>
+                  </div>
+            </div>
+        </div>
+        {% if project.folder.all or project.file.all or tasks %}
+            <div class="folder_wrapper">
+                {% if parent_folder %}
+                <div class="folder">
+                    <img src="{{ "icons/folder.png"|thumbnail_url:'my_preview_4' }}">
+                    <a href="{{ parent_folder.get_absolute_url }}">...</a>
+                </div>
+                {% endif %}
+                {% for folder in folders %}
+                <div class="folder">
+                    <img src="{{ "icons/folder.png"|thumbnail_url:'my_preview_4' }}">
+                    <a href="{{ folder.get_absolute_url }}">{{ folder.name }}</a>
+                </div>
+                {% endfor %}
+                {% for file in files %}
+                <div class="file_wrapper" id="{{ file.id }}">
+                    <div class="file">
+                        <img src="{{ "icons/file.png"|thumbnail_url:'my_preview_4' }}">
+                        <a href="{{ file.get_absolute_url }}">{{ file.name }}{{ file.extension }}</a>
+                    </div>
+                    <div class="file_side">
+                        <div class="memory">
+                            {{ file.file_size }} байт
+                        </div>
+                        <div class="delete_file">
+                            <form method="post" action="{% url "file_processing:delete_file" %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="file_id" value="{{ file.id }}">
+                                <input type="image" src="{{ "icons/cart.png"|thumbnail_url:'my_preview_4' }}">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% for task in tasks %}
+                <div class="file_wrapper">
+                    <div class="file">
+                        <img src="{{ "icons/file.png"|thumbnail_url:'my_preview_4' }}">
+                        <a>Загрузка файла...</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+        <div class="load_files_wrapper">
+            Ваш проект пуст. <a href="{% url 'file_processing:upload_file' request.user.profile.slug project.slug %}">Вы можете загрузить файлы в ваш проект
+        </div>
+        {% endif %}
+    </div>
+    <ul class="custom-context-menu" id="contextMenu">
+        <li>Открыть</li>
+        <li>Переименовать</li>
+        <li>Удалить</li>
+      </ul>
+    <div class="about_wrapper">
+        wdawfwa
+    </div>
+</div>
+{% endblock %}
+{% block domready %}
+    window.toggleFileMenu = function() {
+        document.getElementById("fileMenu").classList.toggle("file-menu-visible");
+      }
+    window.onclick = function(event) {
+    if (!event.target.matches('.file-btn')) {
+        var menus = document.getElementsByClassName("file-menu");
+        var i;
+        for (i = 0; i < menus.length; i++) {
+        var openMenu = menus[i];
+        if (openMenu.classList.contains('file-menu-visible')) {
+            openMenu.classList.remove('file-menu-visible');
+        }
+        }
+    }
+    }
+        
+    const forms = document.querySelectorAll('.delete_file form');
+    forms.forEach(function(form) {
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Предотвращаем стандартное действие
+
+            const formData = new FormData(form);
+            const fileID = form.querySelector('input[name="file_id"]').value; // Сохраняем ID файла
+            formData.append('file_id', form.querySelector('input[name="file_id"]').value);
+
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                mode: 'same-origin',
+                headers: {
+                    'X-CSRFToken': form.querySelector('input[name="csrfmiddlewaretoken"]').value
+                },
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network error');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Form submitted:', data);
+                // Обновляем UI в соответствии с ответом сервера
+                if (data.status === 'ok') {
+                    const fileWrapper = document.getElementById(fileID);
+                    if (fileWrapper) {
+                        fileWrapper.remove();
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error submitting form:', error);
+            });
+        });
+    });
+
+{% endblock %}

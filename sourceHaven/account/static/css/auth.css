@@ -1,0 +1,6 @@
+.login-container { max-width: 300px; margin: 50px auto; padding: 20px; background-color: #fff; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+.login-container h2 { text-align: center; color: #333; }
+.login-container form { display: flex; flex-direction: column; }
+.login-container input[type="text"], input[type="password"] { padding: 10px; margin: 10px 0; border: 1px solid #ddd; }
+.login-container input[type="submit"] { padding: 10px; background-color: #5cb85c; color: white; border: none; cursor: pointer; }
+.login-container input[type="submit"]:hover { background-color: #4cae4c; }

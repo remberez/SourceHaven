@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block load_static %}
+{% load static %}
+<link href="{% static "css/project_created.css" %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<div class="wrapper">
+    Проект успешно создан. <a href="{{ project.get_absolute_url }}">Ссылка</a>
+</div>
+{% endblock %}

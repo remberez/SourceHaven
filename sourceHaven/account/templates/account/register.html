@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block load_static %}
+{% load static %}
+<link href="{% static "css/register.css" %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<div class="registration_form">
+    <h2>Регистрация</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.username }}
+        {{ form.email }}
+        {{ form.password }}
+        {{ form.repeat_password }}
+        <input type="submit" value="Войти">
+    </form>
+</div>
+{% endblock %}

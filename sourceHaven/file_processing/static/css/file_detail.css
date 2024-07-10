@@ -1,0 +1,104 @@
+.directory_wrapper {
+    width: 800px;
+    background-color: white;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+    margin: 0 10px 0 0;
+    padding: 15px;
+}
+
+.about_wrapper {
+    background-color: white;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+}
+
+.wrapper {
+    display: flex;
+    width: 1000px;
+    margin: 30px auto;
+    justify-content: center;
+}
+
+.project_row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0 0 20px 0;
+    border-bottom: 1px rgb(209, 209, 209) solid;
+}
+
+.project_element {
+    display: flex;
+    align-items: flex-end;
+}
+
+.project_element img {
+    border-radius: 100%;
+}
+
+.project_element div, .project_element img {
+    display: flex;
+    margin: 0 5px 0;
+}
+
+.project_name {
+    font-size: 25px;
+}
+
+.is_public {
+    font-size: 10px;
+    border-radius: 5px;
+    padding: 5px;
+    border: 1px gray solid;
+    color: gray;
+}
+
+.btn {
+    border: 1px gray solid;
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
+    background-color: rgb(192, 192, 192);
+    padding: 4px;
+}
+
+
+.file_wrapper {
+    color: white;
+    padding: 10px;
+    font-size: 12px;
+    width: 100%;
+}
+
+.code-container {
+    display: flex;
+}
+
+.line-numbers {
+    text-align: right;
+    padding-right: 10px;
+    user-select: none; /* чтобы номера строк не выделялись */
+    color: #888;
+    font-size: 12px;
+    padding-top: 10px;
+}
+
+pre {
+    margin: 0;
+}
+
+.code-container div {
+    line-height: 14px;
+}
+
+.hljs-ln td.hljs-ln-numbers {
+    width: 20px;
+    text-align: right; /* Установите желаемую ширину ячеек с номерами строк */
+}
+
+.hljs-ln td.hljs-ln-code {
+    padding-left: 20px; /* Отступ для кода */
+}
+
+.project_name a {
+    color: black;
+}

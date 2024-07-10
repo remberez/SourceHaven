@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block load_static %}
+{% load static %}
+<link href="{% static "css/file_detail.css" %}" rel="stylesheet">
+<link rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/atom-one-dark.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+
+{% endblock %}
+{% block content %}
+<div class="wrapper">
+    <div class="directory_wrapper">
+        <div class="project_row">
+            {% load thumbnail %}
+            <div class="project_element">
+                <img src="{{ project.owner.profile.avatar|thumbnail_url:'my_preview_4' }}">
+                <div class="project_name">
+                    <a href="{{ project.get_absolute_url }}">{{ project.name }}</a>
+                </div>
+                <div class="is_public">
+                    {% if project.is_public %}
+                        Публичный
+                    {% else %}
+                        Приватный
+                    {% endif %}
+                </div>
+            </div>
+            <div class="btn pin">
+                Закрепить
+            </div>
+        </div>
+        <div class="code-container">
+            <div class="file_wrapper">
+                <pre class="code"><code class="{{ file.extension_id.lang }}">{{ filling_the_file }}</code></pre>
+            </div>
+        </div>
+    </div>
+    <div class="about_wrapper">
+        wdawfwa
+    </div>
+</div>
+{% endblock %}
+{% block domready %}
+    hljs.highlightAll();
+    hljs.initLineNumbersOnLoad();
+{% endblock %}

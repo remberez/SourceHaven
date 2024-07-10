@@ -1,0 +1,50 @@
+version: '3.8'
+services:
+  django:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: django
+    environment:
+      - DJANGO_SUPERUSER_USERNAME=user
+      - DJANGO_SUPERUSER_EMAIL=user@user.com
+      - DJANGO_SUPERUSER_PASSWORD=123
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py createsuperuser --noinput ||
+             python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - pgdb
+  pgdb:
+    image: postgres
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    container_name: pgdb
+    volumes:
+      - pgdbdata:/var/lib/postgresql/data/
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sq
+  rabbitmq:
+    image: rabbitmq:3.10.7-management
+    ports:
+      - 15672:15672
+      - 5672:5672
+  celery:
+    build: .
+    container_name: celery
+    command: celery -A sourceHaven worker --loglevel=INFO --pool=solo -E
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - django
+      - rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=useradmin
+      - RABBITMQ_DEFAULT_PASS=123
+volumes:
+  pgdbdata: null

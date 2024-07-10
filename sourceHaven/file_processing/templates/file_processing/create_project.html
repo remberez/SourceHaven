@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block load_static %}
+{% load static %}
+<link href="{% static "css/create_project.css" %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<div class="wrapper">
+    <div class="title">
+        Создание нового проекта
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        <div class="name_project">
+            <div class="author">Автор*</div>
+            <div class="name_field">Название*</div>
+        </div>
+        <span class="owner">{{ request.user.profile.slug }} /</span>
+        <input type="text" name="name" id="name" required>
+        <div class="description_title">Описание (необязательно)</div>
+        <input type="text" name="description" id="description">
+        <div>
+            <label for="public">Публичный проект</label>
+            <input type="radio" id="public" name="publicity" value="True" required>
+        </div>
+        <div>
+            <label for="private">Приватный проект</label>
+            <input type="radio" id="private" name="publicity" value="False" required>
+        </div>
+        <input type="submit" value="Создать" id="sub">
+    </form>
+</div>
+{% endblock %}

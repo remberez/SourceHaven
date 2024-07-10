@@ -1,0 +1,198 @@
+.directory_wrapper {
+    width: 800px;
+    background-color: white;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+    margin: 0 10px 0 0;
+    padding: 15px;
+}
+
+.about_wrapper {
+    background-color: white;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+}
+
+.wrapper {
+    display: flex;
+    width: 1000px;
+    margin: 30px auto;
+    justify-content: center;
+}
+
+.project_row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0 0 20px 0;
+    border-bottom: 1px rgb(209, 209, 209) solid;
+}
+
+.project_element {
+    display: flex;
+    align-items: flex-end;
+}
+
+.project_element img {
+    border-radius: 100%;
+}
+
+.project_element div, .project_element img {
+    display: flex;
+    margin: 0 5px 0;
+}
+
+.project_name a {
+    font-size: 25px;
+    color: black;
+}
+
+.is_public {
+    font-size: 10px;
+    border-radius: 5px;
+    padding: 5px;
+    border: 1px gray solid;
+    color: gray;
+}
+
+.folder_wrapper {
+    margin: 20px 0 0 0;
+}
+
+.folder {
+    border-bottom: 1px rgb(197, 197, 197) solid;
+    padding: 0 0 10px 0;
+}
+
+.folder, .file {
+    margin: 0 0 10px 10px;
+    display: flex;
+    align-items: center;
+}
+
+.folder a, .file a {
+    color: black;
+    margin: 0 0 0 10px;
+}
+
+.file_wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px rgb(197, 197, 197) solid;
+    margin: 0 0 10px 0;
+    padding: 0 50px 0 0;
+}
+
+.memory {
+    color: rgb(184, 184, 184);
+}
+
+.folder, .file {
+    position: relative; /* Для позиционирования контекстного меню */
+  }
+  .custom-context-menu {
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    background-color: #f2f2f2;
+    border: 1px solid #d4d4d4;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  }
+  .custom-context-menu li {
+    padding: 8px 12px;
+    list-style-type: none;
+    cursor: pointer;
+  }
+  .custom-context-menu li:hover {
+    background-color: #e0e0e0;
+  }
+
+ul {
+    padding-inline-start: 0px;
+}
+
+.load_files_wrapper {
+    margin: 40px auto;
+    font-size: 20px;
+    text-align: center;
+}
+
+.load_files_wrapper a {
+    color: rgb(128, 132, 255);
+}
+
+#id_file {
+    /* Здесь ваш стиль */
+    color: #555; /* Цвет текста */
+    background-color: #fff; /* Цвет фона */
+    border: 1px solid #ddd; /* Граница */
+    border-radius: 4px; /* Скругление углов */
+    outline: none; /* Убрать контур при фокусе */
+    cursor: pointer; /* Курсор в виде указателя */
+    /* Добавьте другие стили по вашему вкусу */
+}
+
+#id_file::file-selector-button {
+    /* Стилизация кнопки выбора файла */
+    background-color: #f2f2f2;
+    border: 2px solid #dcdcdc;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+#id_file::-webkit-file-upload-button {
+    /* Стилизация для WebKit браузеров */
+    background-color: #f2f2f2;
+    border: 2px solid #dcdcdc;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.right_site {
+    display: flex;
+}
+
+.file-dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  .file-menu {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  .file-menu a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  .file-menu a:hover {background-color: #f1f1f1}
+  .file-menu-visible {display:block;}
+
+.pin, .file-btn {
+    border: 1px gray solid;
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
+    background-color: rgb(192, 192, 192);
+    padding: 4px;
+    font-size: 15px;
+}
+
+.file-btn {
+    margin-left: 5px;
+}
+
+.file_side {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.delete_file {
+    margin-left: 20px;
+}

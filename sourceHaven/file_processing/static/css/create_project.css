@@ -1,0 +1,78 @@
+.wrapper {
+    width: 800px;
+    background-color: white;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+    margin: 30px auto;
+    padding: 50px;
+}
+
+.wrapper .title {
+    font-size: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px rgb(209, 209, 209) solid;
+    margin-bottom: 20px;
+}
+
+.wrapper form {
+    padding: 0;
+}
+
+input[type="text"] {
+    background: #c2c2c2; /* Цвет фона */
+    border: 2px solid #525252; /* Параметры рамки */
+    padding: 10px; /* Поля */
+    width: 100%; /* Ширина */
+    height: 40px; /* Высота */
+    box-sizing: border-box; /* Алгоритм расчёта ширины */
+    font-size: 14px; /* Размер шрифта */
+    resize: none;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+#name {
+    width: 20%;
+}
+
+.owner {
+    background-color: rgb(237, 237, 237);
+    border-radius: 5px;
+    border: 1px black solid;
+    padding: 10px;
+}
+
+.sub_title {
+    font-size: 15px;
+}
+
+.name_project {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.author {
+    margin: 0 0 0 5px;
+}
+
+.name_field {
+    margin: 0 0 0 27px;
+}
+
+.description_title {
+    margin-top: 20px;
+}
+
+#description {
+    margin-bottom: 20px;
+}
+
+#sub {
+    margin-top: 20px;
+    margin-left: 85%;
+    background-color: rgb(44, 44, 44);
+    border: 1px rgb(104, 104, 104) solid;
+    color: white;
+    padding: 10px;
+    width: 100px;
+}

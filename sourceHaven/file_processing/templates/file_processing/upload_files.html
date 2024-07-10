@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block load_static %}
+{% load static %}
+<link href="{% static "css/upload_files.css" %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<div class="wrapper">
+  <div class="project_row">
+    {% load thumbnail %}
+    <div class="project_element">
+        <img src="{{ project.owner.profile.avatar|thumbnail_url:'my_preview_4' }}">
+        <div class="project_name">
+            <a href={{ project.get_absolute_url }}>{{ project.name }}</a>
+        </div>
+        <div class="is_public">
+            {% if project.is_public %}
+                Публичный
+            {% else %}
+                Приватный
+            {% endif %}
+        </div>
+    </div>
+  </div>
+  <form class="file-upload-form" method="post" action="{% url 'file_processing:file_processing' %}" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input id="file" type="file" name="files" multiple />
+      <input type="hidden" name="project_id" value="{{ project.id }}">
+      <select name="folders">
+        <option disabled>Выберите папку</option>
+        <option value="None">Директория проекта</option>
+        {% for directory in directories %}
+            <option value="{{ directory.1 }}">{{ directory.0 }}</option>
+        {% endfor %}
+      </select>
+      <input class="submit" type="submit" value="Загрузить">
+  </form>
+</div>
+{% endblock %}

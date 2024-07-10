@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    .logout {
+        margin: 40px auto;
+        text-align: center;
+    }
+
+    .logout a {
+        color: blue;
+    }
+</style>
+<div class="logout">
+    Вы вышли из своего аккаунта! <a href="{% url 'account:login' %}">Вы можете повторно авторизоваться.</a>
+</div>
+{% endblock %}

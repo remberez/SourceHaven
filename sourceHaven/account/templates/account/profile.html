@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block load_static %}
+{% load static %}
+<link href="{% static "css/profile.css" %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<div class="profile_wrapper">
+    {% load thumbnail %}
+    <div class="avatar">
+        {% if user_profile.avatar %}
+            <img src="{{ user_profile.avatar|thumbnail_url:'my_preview_1' }}" class="img-fluid">
+        {% else %}
+            <img src="{{ "users/static_images/base_avatar/avatar.jpg"|thumbnail_url:'my_preview_1' }}" class="img-fluid">
+        {% endif %}
+    </div>
+    <div class="profile_about">
+        <div class="name_wrapper">
+            <div class="profile_name">
+                {{ user_profile.profile_name }}
+            </div>
+            {% if user_profile.admin_status == 'AD' %}
+                <div class="is_admin">
+                    ADMIN
+                </div>
+            {% elif user_profile.admin_status == 'MD' %}
+                <div class="is_moderator">
+                    MODERATOR
+                </div>
+            {% endif %}
+        </div>
+        <div class="profile_status">
+            {{ user_profile.profile_status }}
+        </div>
+    </div>
+    {% if request.user == user_profile.user %}
+    <div class="change_profile">
+        <a href="#">Редактировать профиль</a>
+    </div>
+    {% else %}
+    <div class="add_to_friend">
+        <a href="#" data-id="{{ user_profile.user.id }}" data-action="{% if users_contact %}un{% endif %}follow">
+            {% if users_contact %}
+                Отписаться
+            {% else %}
+                Подписаться
+            {% endif %}
+        </a>
+    {% endif %}
+</div>
+{% endblock %}  
+{% block domready %}
+    const url = '{% url "account:follow" %}';
+    var options = {
+        method: 'POST',
+        headers: {'X-CSRFToken': csrftoken},
+        mode: 'same-origin'
+    }
+    document.querySelector('.add_to_friend a')
+    .addEventListener('click', function(e) {
+        e.preventDefault();
+        var subButton = this;
+        var formData = new FormData();
+
+        formData.append('id', subButton.dataset.id);
+        formData.append('action', subButton.dataset.action);
+
+        options['body'] = formData;
+
+        fetch(url, options)
+        .then(response => response.json())
+        .then(data => {
+            if (data['status'] === 'ok')
+            {   
+                var previousAction = subButton.dataset.action;
+                var action = previousAction === 'follow' ? 'unfollow' : 'follow';
+                subButton.dataset.action = action;
+                subButton.innerHTML = action === 'follow' ? 'Подписаться' : 'Отписаться';
+            }
+        })
+    });
+    {% endblock %}

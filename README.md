@@ -1,2 +1,2 @@
 # SourceHaven
-My first, almost normal project in Django. I used Django, PostgreSql database, Celery to process the file and RabbitMQ as Celery broker.
+My first project in Django. I used Django, PostgreSql database, Celery to process the file, RabbitMQ as Celery broker and Docker.
